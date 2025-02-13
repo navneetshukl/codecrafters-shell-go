@@ -12,14 +12,16 @@ import (
 var _ = fmt.Fprint
 
 func main() {
-	 fmt.Fprint(os.Stdout, "$ ")
 
-	str,err:=bufio.NewReader(os.Stdin).ReadString('\n')
-	if err!=nil{
-		log.Println("error in reading from the os.Stdin ",err )
-		return
+	for {
+		fmt.Fprint(os.Stdout, "$ ")
+		str, err := bufio.NewReader(os.Stdin).ReadString('\n')
+		if err != nil {
+			log.Println("error in reading from the os.Stdin ", err)
+			return
+		}
+		str = strings.Trim(str, " \r\n\t")
+		resp := fmt.Sprintf("%s: %s", str, "command not found \n")
+		fmt.Fprint(os.Stdout, resp)
 	}
-	str=strings.Trim(str," \r\n\t")
-	resp:=fmt.Sprintf("%s: %s",str,"command not found")
-	fmt.Fprint(os.Stdout,resp)
 }
