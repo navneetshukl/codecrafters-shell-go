@@ -29,6 +29,8 @@ func main() {
 		}
 		str = strings.Trim(str, " \r\n\t")
 
+		fmt.Println("Strrrr is ",str)
+
 		commands := strings.Split(str, " ")
 
 		var resp string
