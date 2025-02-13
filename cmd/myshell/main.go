@@ -21,10 +21,23 @@ func main() {
 			return
 		}
 		str = strings.Trim(str, " \r\n\t")
-		if str=="exit 0"{
+
+		commands := strings.Split(str, " ")
+
+		var resp string
+		switch commands[0] {
+		case "exit":
 			os.Exit(0)
+		case "echo":
+			resp = strings.Join(commands[1:], " ")
+			resp = fmt.Sprintf("%s\n", resp)
+
+		default:
+			resp = strings.Join(commands, " ")
+			resp = fmt.Sprintf("%s: command not found \n", resp)
+
 		}
-		resp := fmt.Sprintf("%s: %s", str, "command not found \n")
+
 		fmt.Fprint(os.Stdout, resp)
 	}
 }
