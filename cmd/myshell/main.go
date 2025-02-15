@@ -18,8 +18,9 @@ func init() {
 }
 
 func main() {
+	path := os.Getenv("PATH")
+	log.Println("Path is ", path)
 
-	TYPE := []string{"echo", "exit", "type"}
 	for {
 		fmt.Fprint(os.Stdout, "$ ")
 		str, err := bufio.NewReader(os.Stdin).ReadString('\n')
@@ -29,39 +30,10 @@ func main() {
 		}
 		str = strings.Trim(str, " \r\n\t")
 
-		fmt.Println("Strrrr is ",str)
-
 		commands := strings.Split(str, " ")
+		/* Enter the execCommand function code here if error comming */
 
-		var resp string
-		switch commands[0] {
-		case "exit":
-			os.Exit(0)
-		case "echo":
-			resp = strings.Join(commands[1:], " ")
-			resp = fmt.Sprintf("%s\n", resp)
-
-		case "type":
-			cmdStr := strings.Join(commands[1:], " ")
-			isFound := false
-			for _, v := range TYPE {
-				if v == cmdStr {
-					isFound = true
-					break
-				}
-			}
-			if isFound {
-				resp = fmt.Sprintf("%s %s \n", cmdStr, "is a shell builtin")
-			} else {
-				resp = fmt.Sprintf("%s: %s \n", cmdStr, "not found")
-			}
-
-		default:
-			resp = strings.Join(commands, " ")
-			resp = fmt.Sprintf("%s: command not found \n", resp)
-
-		}
-
+		resp := execCommand(commands)
 		fmt.Fprint(os.Stdout, resp)
 	}
 }
