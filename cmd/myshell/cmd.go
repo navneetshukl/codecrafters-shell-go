@@ -31,7 +31,7 @@ func execCommand(commands []string, pathEnv string) {
 				str := path + "/" + cmdStr
 				_, err := os.Stat(str)
 				if err == nil {
-					resp = fmt.Sprintf("%s is %s ", cmdStr, str)
+					resp = fmt.Sprintf("%s is %s \n", cmdStr, str)
 					fmt.Fprint(os.Stdout, resp)
 					return
 				}
