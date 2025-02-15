@@ -17,27 +17,13 @@ func execCommand(commands []string, pathEnv string) string {
 		resp = strings.Join(commands[1:], " ")
 		resp = fmt.Sprintf("%s\n", resp)
 
-	// case "type":
-	// 	cmdStr := strings.Join(commands[1:], " ")
-	// 	isFound := false
-	// 	for _, v := range TYPE {
-	// 		if v == cmdStr {
-	// 			isFound = true
-	// 			break
-	// 		}
-	// 	}
-	// 	if isFound {
-	// 		resp = fmt.Sprintf("%s %s \n", cmdStr, "is a shell builtin")
-	// 	} else {
-	// 		resp = fmt.Sprintf("%s: %s \n", cmdStr, "not found")
-	// 	}
-
 	case "type":
 		cmdStr := strings.Join(commands[1:], "")
 
 		_, exits := allCommands[cmdStr]
 		if exits {
 			resp = fmt.Sprintf("%s %s \n", cmdStr, "is a shell builtin")
+			return resp
 		} else {
 			paths := strings.Split(pathEnv, ":")
 			for _, path := range paths {
@@ -45,6 +31,7 @@ func execCommand(commands []string, pathEnv string) string {
 				_, err := os.Stat(str)
 				if err != nil {
 					resp = fmt.Sprintf("%s is %s ", cmdStr, str)
+					return resp
 				}
 			}
 		}
