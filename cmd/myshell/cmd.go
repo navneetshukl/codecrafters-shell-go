@@ -39,8 +39,6 @@ func execCommand(commands []string, pathEnv string) {
 			resp = fmt.Sprintf("%s: %s\n", cmdStr, "not found")
 			fmt.Fprint(os.Stdout, resp)
 		}
-		// resp = fmt.Sprintf("%s: %s\n", cmdStr, "not found")
-		// fmt.Fprint(os.Stdout, resp)
 
 	default:
 		resp = strings.Join(commands, " ")
