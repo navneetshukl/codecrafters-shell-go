@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"os/exec"
 	"strings"
@@ -12,7 +11,7 @@ var allCommands = map[string]int{"echo": 0, "exit": 1, "type": 2}
 
 func execCommand(commands []string, pathEnv string) {
 	var resp string
-	log.Println("The path env is ", pathEnv)
+	//log.Println("The path env is ", pathEnv)
 	switch commands[0] {
 	case "exit":
 		os.Exit(0)
