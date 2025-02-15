@@ -43,9 +43,6 @@ func execCommand(commands []string, pathEnv string) {
 		}
 
 	default:
-		// resp = strings.Join(commands, " ")
-		// resp = fmt.Sprintf("%s: command not found \n", resp)
-		// fmt.Fprint(os.Stdout, resp)
 
 		command := exec.Command(commands[0], commands[1:]...)
 		command.Stderr = os.Stderr
