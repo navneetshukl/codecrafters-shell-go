@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-var allCommands = map[string]int{"echo": 0, "exit": 1, "type": 2}
+var allCommands = map[string]int{"echo": 0, "exit": 1, "type": 2, "pwd": 3}
 
 func execCommand(commands []string, pathEnv string) {
 	var resp string
@@ -44,12 +44,13 @@ func execCommand(commands []string, pathEnv string) {
 		}
 
 	case "pwd":
-		dir,err:=os.Getwd()
-		if err!=nil{
-			log.Println("error in getting the current working directory ",err)
+		dir, err := os.Getwd()
+		//log.Println("Dir is ", dir)
+		if err != nil {
+			log.Println("error in getting the current working directory ", err)
 			return
 		}
-		fmt.Fprintf(os.Stdout,"%s\n",dir)
+		fmt.Fprintf(os.Stdout, "%s\n", dir)
 	default:
 
 		command := exec.Command(commands[0], commands[1:]...)
