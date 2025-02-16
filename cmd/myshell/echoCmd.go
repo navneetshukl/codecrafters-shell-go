@@ -12,7 +12,7 @@ func echoCmd(commands []string) {
 	//fmt.Println("Commands is ", commands)
 	for _, val := range commands {
 		//fmt.Println("Length and character is ", len(val), val)
-		if len(val) > 0 {
+		if len(val) > 0 && val != "echo" {
 			resp += val + " "
 		}
 	}
