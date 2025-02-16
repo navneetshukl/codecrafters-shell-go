@@ -56,7 +56,7 @@ func execCommand(commands []string, pathEnv string) {
 		dirName := commands[1]
 		err := os.Chdir(dirName)
 		if err != nil {
-			fmt.Fprintf(os.Stdout, "cd: %s\n: No such file or directory", dirName)
+			fmt.Fprintf(os.Stdout, "cd: %s: No such file or directory\n", dirName)
 			return
 		}
 	default:
