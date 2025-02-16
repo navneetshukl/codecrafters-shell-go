@@ -32,12 +32,13 @@ func execCommand(commands []string, pathEnv string) {
 		}
 		fmt.Fprintf(os.Stdout, "%s\n", dir)
 	case "cd":
-		dirName := commands[1]
-		err := os.Chdir(dirName)
-		if err != nil {
-			fmt.Fprintf(os.Stdout, "cd: %s: No such file or directory\n", dirName)
-			return
-		}
+		// dirName := commands[1]
+		// err := os.Chdir(dirName)
+		// if err != nil {
+		// 	fmt.Fprintf(os.Stdout, "cd: %s: No such file or directory\n", dirName)
+		// 	return
+		// }
+		cdCmd(commands)
 	default:
 		command := exec.Command(commands[0], commands[1:]...)
 		command.Stderr = os.Stderr
