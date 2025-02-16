@@ -34,6 +34,7 @@ func echoCmd(commands []string) {
 	inSingleQuotes := false
 	var currentPart strings.Builder
 
+	
 	for _, word := range commands[1:] {
 		// Handle single quotes
 		if strings.HasPrefix(word, "'") {
