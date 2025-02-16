@@ -5,17 +5,16 @@ import (
 	"os"
 )
 
-func cdCmd(commands []string) {
+func cdCmd(commands []string,homeEnv string) {
 	dirName := commands[1]
 	if dirName == "~" {
+		dirName=homeEnv
 
-		_, _ = os.UserHomeDir()
-
-	} else {
+	} //else {
 		err := os.Chdir(dirName)
 		if err != nil {
 			fmt.Fprintf(os.Stdout, "cd: %s: No such file or directory\n", dirName)
 			return
 		}
-	}
+	//}
 }

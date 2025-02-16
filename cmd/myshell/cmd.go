@@ -10,7 +10,7 @@ import (
 
 var allCommands = map[string]int{"echo": 0, "exit": 1, "type": 2, "pwd": 3}
 
-func execCommand(commands []string, pathEnv string) {
+func execCommand(commands []string, pathEnv,homeEnv string) {
 	var resp string
 	switch commands[0] {
 	case "exit":
@@ -38,7 +38,7 @@ func execCommand(commands []string, pathEnv string) {
 		// 	fmt.Fprintf(os.Stdout, "cd: %s: No such file or directory\n", dirName)
 		// 	return
 		// }
-		cdCmd(commands)
+		cdCmd(commands,homeEnv)
 	default:
 		command := exec.Command(commands[0], commands[1:]...)
 		command.Stderr = os.Stderr

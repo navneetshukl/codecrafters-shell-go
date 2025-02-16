@@ -19,6 +19,7 @@ func init() {
 
 func main() {
 	pathEnv := os.Getenv("PATH")
+	homeEnv:=os.Getenv("HOME")
 	for {
 		fmt.Fprint(os.Stdout, "$ ")
 		str, err := bufio.NewReader(os.Stdin).ReadString('\n')
@@ -31,7 +32,7 @@ func main() {
 		commands := strings.Split(str, " ")
 		/* Enter the execCommand function code here if error comming */
 
-		execCommand(commands, pathEnv)
+		execCommand(commands, pathEnv,homeEnv)
 
 	}
 }
