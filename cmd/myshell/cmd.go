@@ -22,37 +22,44 @@ func execCommand(commands []string, pathEnv string) {
 		fmt.Fprint(os.Stdout, resp)
 
 	case "type":
-		cmdStr := strings.Join(commands[1:], "")
+		// cmdStr := strings.Join(commands[1:], "")
 
-		_, exits := allCommands[cmdStr]
-		if exits {
-			resp = fmt.Sprintf("%s %s\n", cmdStr, "is a shell builtin")
-			fmt.Fprint(os.Stdout, resp)
-		} else {
-			paths := strings.Split(pathEnv, ":")
-			for _, path := range paths {
-				str := path + "/" + cmdStr
-				_, err := os.Stat(str)
-				if err == nil {
-					resp = fmt.Sprintf("%s is %s\n", cmdStr, str)
-					fmt.Fprint(os.Stdout, resp)
-					return
-				}
-			}
-			resp = fmt.Sprintf("%s: %s\n", cmdStr, "not found")
-			fmt.Fprint(os.Stdout, resp)
-		}
+		// _, exits := allCommands[cmdStr]
+		// if exits {
+		// 	resp = fmt.Sprintf("%s %s\n", cmdStr, "is a shell builtin")
+		// 	fmt.Fprint(os.Stdout, resp)
+		// } else {
+		// 	paths := strings.Split(pathEnv, ":")
+		// 	for _, path := range paths {
+		// 		str := path + "/" + cmdStr
+		// 		_, err := os.Stat(str)
+		// 		if err == nil {
+		// 			resp = fmt.Sprintf("%s is %s\n", cmdStr, str)
+		// 			fmt.Fprint(os.Stdout, resp)
+		// 			return
+		// 		}
+		// 	}
+		// 	resp = fmt.Sprintf("%s: %s\n", cmdStr, "not found")
+		// 	fmt.Fprint(os.Stdout, resp)
+		// }
+
+		typeCommand(commands, pathEnv)
 
 	case "pwd":
 		dir, err := os.Getwd()
-		//log.Println("Dir is ", dir)
 		if err != nil {
 			log.Println("error in getting the current working directory ", err)
 			return
 		}
 		fmt.Fprintf(os.Stdout, "%s\n", dir)
+	case "cd":
+		dirName := commands[1]
+		err := os.Chdir(dirName)
+		if err != nil {
+			fmt.Fprintf(os.Stdout, "cd: %s\n: No such file or directory", dirName)
+			return
+		}
 	default:
-
 		command := exec.Command(commands[0], commands[1:]...)
 		command.Stderr = os.Stderr
 		command.Stdout = os.Stdout
