@@ -14,6 +14,7 @@ func echoCmd(commands []string) {
 	if string(ch1) == "'" {
 		resp = resp[1:]
 	}
+	
 	if string(resp[len(resp)-2]) == "'" {
 		resp1 := ""
 		for idx, val := range resp {
