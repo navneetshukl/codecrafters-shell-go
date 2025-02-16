@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"strings"
@@ -42,6 +43,13 @@ func execCommand(commands []string, pathEnv string) {
 			fmt.Fprint(os.Stdout, resp)
 		}
 
+	case "pwd":
+		dir,err:=os.Getwd()
+		if err!=nil{
+			log.Println("error in getting the current working directory ",err)
+			return
+		}
+		fmt.Fprintf(os.Stdout,"%s\n",dir)
 	default:
 
 		command := exec.Command(commands[0], commands[1:]...)
