@@ -10,7 +10,7 @@ import (
 
 var allCommands = map[string]int{"echo": 0, "exit": 1, "type": 2, "pwd": 3}
 
-func execCommand(commands []string, pathEnv,homeEnv string) {
+func execCommand(commands []string, pathEnv, homeEnv string) {
 	var resp string
 	switch commands[0] {
 	case "exit":
@@ -18,6 +18,24 @@ func execCommand(commands []string, pathEnv,homeEnv string) {
 	case "echo":
 		resp = strings.Join(commands[1:], " ")
 		resp = fmt.Sprintf("%s\n", resp)
+
+		ch1 := resp[0]
+		if string(ch1) == "'" {
+			resp = resp[1:]
+		}
+		if string(resp[len(resp)-2]) == "'" {
+			resp1 := ""
+			for idx, val := range resp {
+				//fmt.Println("index and character is ", idx, string(val))
+				if idx == len(resp)-2 && string(val) == "'" {
+					continue
+				} else {
+					resp1 += string(val)
+				}
+			}
+			resp = resp1
+		}
+		//fmt.Println("Length is ", len(resp))
 		fmt.Fprint(os.Stdout, resp)
 
 	case "type":
@@ -32,13 +50,7 @@ func execCommand(commands []string, pathEnv,homeEnv string) {
 		}
 		fmt.Fprintf(os.Stdout, "%s\n", dir)
 	case "cd":
-		// dirName := commands[1]
-		// err := os.Chdir(dirName)
-		// if err != nil {
-		// 	fmt.Fprintf(os.Stdout, "cd: %s: No such file or directory\n", dirName)
-		// 	return
-		// }
-		cdCmd(commands,homeEnv)
+		cdCmd(commands, homeEnv)
 	default:
 		command := exec.Command(commands[0], commands[1:]...)
 		command.Stderr = os.Stderr
